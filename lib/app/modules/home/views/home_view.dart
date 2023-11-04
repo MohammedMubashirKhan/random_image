@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:random_image/app/data/urls.dart';
-
+import 'package:random_image/app/routes/app_pages.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -24,6 +23,14 @@ class HomeView extends GetView<HomeController> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: const Text("Home"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Get.toNamed(Routes.CART);
+            },
+            icon: const Icon(Icons.shopping_cart_checkout),
+          )
+        ],
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
