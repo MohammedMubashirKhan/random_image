@@ -76,7 +76,8 @@ class HomeView extends GetView<HomeController> {
                       controller.addTocart(
                           !controller.randomImageModel.value!.addedTocart!);
                     },
-                    icon: controller.randomImageModel.value!.addedTocart!
+                    icon: (controller.randomImageModel.value?.addedTocart ??
+                            false)
                         ? const Icon(Icons.shopping_cart)
                         : const Icon(Icons.shopping_cart_outlined),
                   ),
