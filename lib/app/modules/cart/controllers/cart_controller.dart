@@ -1,26 +1,47 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
-import 'package:random_image/app/modules/home/api/random_image.dart';
-import 'package:random_image/app/modules/home/model/randomImageModel.dart';
+import 'package:isar/isar.dart';
+import 'package:random_image/app/modules/home/controllers/home_controller.dart';
+import 'package:random_image/app/modules/home/model/random_image_model.dart';
 
 class CartController extends GetxController {
   //TODO: Implement HomeController
 
-  Rxn<RandomImageModel> randomImageModel = Rxn<RandomImageModel>();
-
+  RxList<RandomImageModel> cartImages = <RandomImageModel>[].obs;
   @override
   void onInit() {
-    getRandomImage();
+    readRandomImageFromIsar();
     super.onInit();
   }
 
-  final count = 0.obs;
+  Future<void> readRandomImageFromIsar() async {
+    HomeController homeController = Get.find<HomeController>();
+    var isar = homeController.isar;
 
-  void increment() => count.value++;
+    var randomImageModels = isar.randomImageModels;
+    cartImages.value =
+        await randomImageModels.where().addedTocartEqualTo(true).findAll();
+  }
 
-  Future<void> getRandomImage() async {
-    randomImageModel.value = await RandomImageApi().getRandomImage();
-    log("${randomImageModel.value?.toJson()}", name: "randomImageModel.value");
+  Future<void> addTocart(int index, bool addTocart) async {
+    HomeController homeController = Get.find<HomeController>();
+    var isar = homeController.isar;
+    final randomImageModels = isar.randomImageModels;
+
+    cartImages[index].addedTocart = addTocart;
+
+    // write  tranaction in isar DB
+    await isar.writeTxn(() async {
+      await randomImageModels.put(cartImages[index]);
+      cartImages.value =
+          await randomImageModels.where().addedTocartEqualTo(true).findAll();
+    });
+
+    Get.showSnackbar(
+      const GetSnackBar(
+        title: "Removed from cart",
+        message: "Success !!!",
+        duration: Duration(seconds: 1),
+      ),
+    );
   }
 }

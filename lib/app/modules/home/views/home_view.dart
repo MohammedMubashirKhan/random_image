@@ -64,17 +64,16 @@ class HomeView extends GetView<HomeController> {
             ),
             Obx(
               () => ListTile(
-                leading: IconButton(
-                  onPressed: () {
-                    Get.showSnackbar(
-                      const GetSnackBar(
-                        title: "Added to cart",
-                        message: "Success !!!",
-                        duration: Duration(seconds: 3),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.shopping_cart),
+                leading: Obx(
+                  () => IconButton(
+                    onPressed: () {
+                      controller.addTocart(
+                          !controller.randomImageModel.value!.addedTocart!);
+                    },
+                    icon: controller.randomImageModel.value!.addedTocart!
+                        ? const Icon(Icons.shopping_cart)
+                        : const Icon(Icons.shopping_cart_outlined),
+                  ),
                 ),
                 title: const Text("Price"),
                 trailing:

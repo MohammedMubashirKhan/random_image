@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:random_image/app/data/urls.dart';
-import 'package:random_image/app/modules/home/model/randomImageModel.dart';
+import 'package:random_image/app/modules/home/model/random_image_model.dart';
 
 class RandomImageApi {
   Future<RandomImageModel?> getRandomImage() async {
