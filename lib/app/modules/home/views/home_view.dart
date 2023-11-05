@@ -15,6 +15,12 @@ class HomeView extends GetView<HomeController> {
         actions: [
           IconButton(
             onPressed: () {
+              Get.toNamed(Routes.HISTORY);
+            },
+            icon: const Icon(Icons.history),
+          ),
+          IconButton(
+            onPressed: () {
               Get.toNamed(Routes.CART);
             },
             icon: const Icon(Icons.shopping_cart_checkout),

@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:random_image/app/modules/history/bindings/history_binding.dart';
+import 'package:random_image/app/modules/history/views/history_view.dart';
 
 import '../modules/cart/bindings/cart_binding.dart';
 import '../modules/cart/views/cart_view.dart';
@@ -22,6 +24,11 @@ class AppPages {
       name: _Paths.CART,
       page: () => const CartView(),
       binding: CartBinding(),
+    ),
+    GetPage(
+      name: _Paths.HISTORY,
+      page: () => const HistoryView(),
+      binding: HistoryBinding(),
     ),
   ];
 }
