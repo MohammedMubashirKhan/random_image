@@ -16,8 +16,8 @@ class HistoryController extends GetxController {
   Future<void> readRandomImageFromIsar() async {
     HomeController homeController = Get.find<HomeController>();
     var isar = homeController.isar;
-
     var randomImageModels = isar.randomImageModels;
+
     historyImages.value = await randomImageModels.where().findAll();
   }
 
@@ -52,5 +52,15 @@ class HistoryController extends GetxController {
         ),
       );
     }
+  }
+
+  clearDatabasee() async {
+    HomeController homeController = Get.find<HomeController>();
+    var isar = homeController.isar;
+
+    await isar.writeTxn(() async {
+      await isar.clear();
+      historyImages.clear();
+    });
   }
 }

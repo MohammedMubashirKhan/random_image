@@ -11,6 +11,11 @@ class HistoryView extends GetView<HistoryController> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("History"),
+        actions: [
+          IconButton(
+              onPressed: controller.clearDatabasee,
+              icon: const Icon(Icons.delete_forever))
+        ],
       ),
       body: Center(
         child: Column(
